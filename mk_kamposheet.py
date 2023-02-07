@@ -169,7 +169,7 @@ def mk_kamposheet(df_select):
         # PRG5_2_2 特記事項
         # 行の高さ
         bottom_row_number = title_iloc + num_rowcomment + 1
-        ws.row_dimensions[bottom_row_number].height = 20
+        ws.row_dimensions[bottom_row_number].height = 18
         # 内容
         ws.cell(row=bottom_row_number, column=1).value = '特記事項：'
         # 書式設定
