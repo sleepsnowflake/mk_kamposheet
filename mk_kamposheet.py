@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import os
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import openpyxl as xl
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.styles import Alignment, Font, PatternFill
@@ -142,11 +143,12 @@ def mk_kamposheet(df_select):
     # PRG5 中身を作成
     # PRG5_0 列幅
     ws.column_dimensions['A'].width=6
-    ws.column_dimensions['B'].width=19.5
-    ws.column_dimensions['C'].width=11.44
-    ws.column_dimensions['D'].width=16.89
-    ws.column_dimensions['E'].width=11.44
-    ws.column_dimensions['F'].width=63.67
+    ws.column_dimensions['B'].width=18
+    ws.column_dimensions['C'].width=11
+    ws.column_dimensions['D'].width=17
+    ws.column_dimensions['E'].width=11
+    ws.column_dimensions['F'].width=63
+    ws.column_dimensions['G'].width=15
 
     for i in range(sheet_num):
     # PRG5_1 タイトル書き込み位置
@@ -342,11 +344,13 @@ if st.session_state.form_flag_1:
 if st.session_state.form_flag_2:
     st.subheader('STEP6 「Download」ボタンからExcelをダウンロード')
     save_path = mk_kamposheet(df_select)
-    dt_now = datetime.now().strftime('%Y年%m月%d日%H時%M分%S秒')
+    ASIA_TOKYO = ZoneInfo('Asia/Tokyo')
+    dt_now = datetime.now(ASIA_TOKYO).strftime('%Y年%m月%d日%H時%M分%S秒')
     with open(save_path, "rb") as d:
         st.download_button("Download", d, file_name=f"構成生薬_{dt_now}.xlsx")
     
     st.write('ファイル名は、「:blue[構成生薬_年月日時分秒.xlsx]」です')
+    st.write('Excelを開いて:red[編集を有効にする]をクリックするとページが整います。')
 
         
 
